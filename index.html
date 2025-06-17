@@ -18,10 +18,40 @@
     .icon{font-size:2rem;margin-bottom:.3rem}
     .weather{font-size:.95rem;color:#555}
     small{font-size:.8rem;color:#666}
+	.loader-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.spinner {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #3498db; /* Spinner color */
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
   </style>
 </head>
 <body>
   <h1>Current Weather in US National Parks</h1>
+  <div id="loader" class="loader-container">
+  <div class="spinner"></div>
+</div>
   <div class="controls">
     <select id="stateFilter">
       <option value="all">All States</option>
@@ -34,7 +64,14 @@
     </select>
   </div>
   <div id="parks" class="park-list">Loading weather data...</div>
-
+<script>
+  window.addEventListener("load", () => {
+    // Optional: simulate a delay or wait for real data load
+    setTimeout(() => {
+      document.getElementById("loader").style.display = "none";
+    }, 1500); // Change duration or use actual data load callback
+  });
+</script>
 <script>
 const parks = [
   { name: 'Acadia', lat: 44.35, lon: -68.21, url: 'https://www.nps.gov/acad', states: ['ME'] },
