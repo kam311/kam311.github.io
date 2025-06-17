@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-YN8ML0DX5L"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-YN8ML0DX5L'); </script>
+<!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-YN8ML0DX5L"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-YN8ML0DX5L'); </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>US National Parks Weather</title>
@@ -36,71 +36,81 @@
   <div id="parks" class="park-list">Loading weather data...</div>
 
 <script>
-const parks=[
-  {name:'Acadia',state:'ME',lat:44.35,lon:-68.21,url:'https://www.nps.gov/acad'},
-  {name:'Arches',state:'UT',lat:38.7331,lon:-109.5925,url:'https://www.nps.gov/arch'},
-  {name:'Badlands',state:'SD',lat:43.8554,lon:-102.3397,url:'https://www.nps.gov/badl'},
-  {name:'Big Bend',state:'TX',lat:29.1275,lon:-103.2425,url:'https://www.nps.gov/bibe'},
-  {name:'Bryce Canyon',state:'UT',lat:37.593,lon:-112.1871,url:'https://www.nps.gov/brca'},
-  {name:'Capitol Reef',state:'UT', lat: 38.367, lon: -111.2615, url: 'https://www.nps.gov/care' },
-  {name:'Carlsbad Caverns',state:'NM', lat: 32.1479, lon: -104.5567, url: 'https://www.nps.gov/cave' },
-  {name:'Channel Islands',state:'CA', lat: 34.0069, lon: -119.7785, url: 'https://www.nps.gov/chis' },
-  {name:'Congaree',state:'SC', lat: 33.7911, lon: -80.7812, url: 'https://www.nps.gov/cong' },
-  {name:'Crater Lake',state:'OR', lat: 42.8684, lon: -122.1685, url: 'https://www.nps.gov/crla' },
-  {name:'Cuyahoga Valley',state:'OH', lat: 41.2808, lon: -81.5678, url: 'https://www.nps.gov/cuva' },
-  {name:'Death Valley',state:'CA', lat: 36.2461, lon: -116.8185, url: 'https://www.nps.gov/deva' },
-  {name:'Denali',state:'AK', lat: 63.1148, lon: -151.1926, url: 'https://www.nps.gov/dena' },
-  {name:'Dry Tortugas',state:'FL', lat: 24.6285, lon: -82.8732, url: 'https://www.nps.gov/drto' },
-  {name:'Everglades',state:'FL', lat: 25.2866, lon: -80.8987, url: 'https://www.nps.gov/ever' },
-  {name:'Glacier',state:'MT', lat: 48.7596, lon: -113.787, url: 'https://www.nps.gov/glac' },
-  {name:'Glacier Bay',state:'AK', lat: 58.6658, lon: -136.9002, url: 'https://www.nps.gov/glba' },
-  {name:'Grand Canyon',state:'AZ', lat: 36.1069, lon: -112.1129, url: 'https://www.nps.gov/grca' },
-  {name:'Grand Teton',state:'WY', lat: 43.7904, lon: -110.6818, url: 'https://www.nps.gov/grte' },
-  {name:'Great Basin',state:'NV', lat: 38.9833, lon: -114.3064, url: 'https://www.nps.gov/grba' },
-  {name:'Great Sand Dunes',state:'CO', lat: 37.7924, lon: -105.5943, url: 'https://www.nps.gov/grsa' },
-  {name:'Great Smoky Mountains',state:'NC', lat: 35.6532, lon: -83.507, url: 'https://www.nps.gov/grsm' },
-  {name:'Guadalupe Mountains',state:'TX', lat: 31.923, lon: -104.8606, url: 'https://www.nps.gov/gumo' },
-  {name:'Haleakalā',state:'HI', lat: 20.7204, lon: -156.1552, url: 'https://www.nps.gov/hale' },
-  {name:'Hawaiʻi Volcanoes',state:'HI', lat: 19.4194, lon: -155.2885, url: 'https://www.nps.gov/havo' },
-  {name:'Hot Springs',state:'AR', lat: 34.5136, lon: -93.0534, url: 'https://www.nps.gov/hosp' },
-  {name:'Isle Royale',state:'MI', lat: 47.9956, lon: -88.909, url: 'https://www.nps.gov/isro' },
-  {name:'Joshua Tree',state:'CA', lat: 33.8734, lon: -115.901, url: 'https://www.nps.gov/jotr' },
-  {name:'Katmai',state:'AK', lat: 58.6126, lon: -155.0631, url: 'https://www.nps.gov/katm' },
-  {name:'Kenai Fjords',state:'AK', lat: 59.9225, lon: -149.6493, url: 'https://www.nps.gov/kefj' },
-  {name:'Kings Canyon',state:'CA', lat: 36.8879, lon: -118.5551, url: 'https://www.nps.gov/seki' },
-  {name:'Kobuk Valley',state:'AK', lat: 67.3356, lon: -159.1278, url: 'https://www.nps.gov/kova' },
-  {name:'Lake Clark',state:'AK', lat: 60.9675, lon: -153.8494, url: 'https://www.nps.gov/lacl' },
-  {name:'Lassen Volcanic',state:'CA', lat: 40.4977, lon: -121.4207, url: 'https://www.nps.gov/lavo' },
-  {name:'Mammoth Cave',state:'KY', lat: 37.186, lon: -86.1018, url: 'https://www.nps.gov/maca' },
-  {name:'Mesa Verde',state:'CO', lat: 37.2309, lon: -108.4618, url: 'https://www.nps.gov/meve' },
-  {name:'Mount Rainier',state:'WA', lat: 46.8523, lon: -121.7603, url: 'https://www.nps.gov/mora' },
-  {name:'North Cascades',state:'WA', lat: 48.7718, lon: -121.2985, url: 'https://www.nps.gov/noca' },
-  {name:'Olympic',state:'WA', lat: 47.8021, lon: -123.6044, url: 'https://www.nps.gov/olym' },
-  {name:'Petrified Forest',state:'AZ', lat: 35.0658, lon: -109.7878, url: 'https://www.nps.gov/pefo' },
-  {name:'Pinnacles',state:'CA', lat: 36.4906, lon: -121.1825, url: 'https://www.nps.gov/pinn' },
-  {name:'Redwood',state:'CA', lat: 41.2132, lon: -124.0046, url: 'https://www.nps.gov/redw' },
-  {name:'Rocky Mountain',state:'CO', lat: 40.3428, lon: -105.6836, url: 'https://www.nps.gov/romo' },
-  {name:'Saguaro',state:'AZ', lat: 32.2967, lon: -111.1661, url: 'https://www.nps.gov/sagu' },
-  {name:'Sequoia',state:'CA', lat: 36.4864, lon: -118.5658, url: 'https://www.nps.gov/seki' },
-  {name:'Shenandoah',state:'VA', lat: 38.53, lon: -78.35, url: 'https://www.nps.gov/shen' },
-  {name:'Theodore Roosevelt',state:'ND', lat: 46.979, lon: -103.5387, url: 'https://www.nps.gov/thro' },
-  {name:'Virgin Islands',state:'VI', lat: 18.342, lon: -64.7501, url: 'https://www.nps.gov/viis' },
-  {name:'Voyageurs',state:'MN', lat: 48.4841, lon: -92.8386, url: 'https://www.nps.gov/voya' },
-  {name:'Wind Cave',state:'SD', lat: 43.568, lon: -103.4836, url: 'https://www.nps.gov/wica' },
-  {name:'Wrangell-St. Elias',state:'AK', lat: 61.7194, lon: -142.9856, url: 'https://www.nps.gov/wrst' },
-  {name:'Yellowstone',state:'WY', lat: 44.6, lon: -110.5, url: 'https://www.nps.gov/yell' },
-  {name:'Yosemite',state:'CA',lat:37.8651,lon:-119.5383,url:'https://www.nps.gov/yose'},
-  {name:'Zion',state:'UT',lat:37.2982,lon:-113.0263,url:'https://www.nps.gov/zion'}
-  
+const parks = [
+  { name: 'Acadia', lat: 44.35, lon: -68.21, url: 'https://www.nps.gov/acad', states: ['ME'] },
+  { name: 'American Samoa', lat: -14.25, lon: -170.68, url: 'https://www.nps.gov/amer', states: ['AS'] },
+  { name: 'Arches', lat: 38.7331, lon: -109.5925, url: 'https://www.nps.gov/arch', states: ['UT'] },
+  { name: 'Badlands', lat: 43.8554, lon: -102.3397, url: 'https://www.nps.gov/badl', states: ['SD'] },
+  { name: 'Big Bend', lat: 29.1275, lon: -103.2425, url: 'https://www.nps.gov/bibe', states: ['TX'] },
+  { name: 'Biscayne', lat: 25.4824, lon: -80.2083, url: 'https://www.nps.gov/bisc', states: ['FL'] },
+  { name: 'Black Canyon of the Gunnison', lat: 38.5754, lon: -107.7416, url: 'https://www.nps.gov/blca', states: ['CO'] },
+  { name: 'Bryce Canyon', lat: 37.593, lon: -112.1871, url: 'https://www.nps.gov/brca', states: ['UT'] },
+  { name: 'Canyonlands', lat: 38.2, lon: -109.93, url: 'https://www.nps.gov/cany', states: ['UT'] },
+  { name: 'Capitol Reef', lat: 38.367, lon: -111.2615, url: 'https://www.nps.gov/care', states: ['UT'] },
+  { name: 'Carlsbad Caverns', lat: 32.1479, lon: -104.5567, url: 'https://www.nps.gov/cave', states: ['NM'] },
+  { name: 'Channel Islands', lat: 34.0069, lon: -119.7785, url: 'https://www.nps.gov/chis', states: ['CA'] },
+  { name: 'Congaree', lat: 33.7911, lon: -80.7812, url: 'https://www.nps.gov/cong', states: ['SC'] },
+  { name: 'Crater Lake', lat: 42.8684, lon: -122.1685, url: 'https://www.nps.gov/crla', states: ['OR'] },
+  { name: 'Cuyahoga Valley', lat: 41.2808, lon: -81.5678, url: 'https://www.nps.gov/cuva', states: ['OH'] },
+  { name: 'Death Valley', lat: 36.5054, lon: -117.0794, url: 'https://www.nps.gov/deva', states: ['CA','NV'] },
+  { name: 'Denali', lat: 63.1148, lon: -151.1926, url: 'https://www.nps.gov/dena', states: ['AK'] },
+  { name: 'Dry Tortugas', lat: 24.6285, lon: -82.8732, url: 'https://www.nps.gov/drto', states: ['FL'] },
+  { name: 'Everglades', lat: 25.2866, lon: -80.8987, url: 'https://www.nps.gov/ever', states: ['FL'] },
+  { name: 'Gates of the Arctic', lat: 67.78, lon: -153.3, url: 'https://www.nps.gov/gaar', states: ['AK'] },
+  { name: 'Gateway Arch', lat: 38.6247, lon: -90.1848, url: 'https://www.nps.gov/jeff', states: ['MO'] },
+  { name: 'Glacier', lat: 48.7596, lon: -113.787, url: 'https://www.nps.gov/glac', states: ['MT'] },
+  { name: 'Glacier Bay', lat: 58.6658, lon: -136.9002, url: 'https://www.nps.gov/glba', states: ['AK'] },
+  { name: 'Grand Canyon', lat: 36.1069, lon: -112.1129, url: 'https://www.nps.gov/grca', states: ['AZ'] },
+  { name: 'Grand Teton', lat: 43.7904, lon: -110.6818, url: 'https://www.nps.gov/grte', states: ['WY'] },
+  { name: 'Great Basin', lat: 38.9833, lon: -114.3064, url: 'https://www.nps.gov/grba', states: ['NV'] },
+  { name: 'Great Sand Dunes', lat: 37.7924, lon: -105.5943, url: 'https://www.nps.gov/grsa', states: ['CO'] },
+  { name: 'Great Smoky Mountains', lat: 35.6532, lon: -83.507, url: 'https://www.nps.gov/grsm', states: ['TN','NC'] },
+  { name: 'Guadalupe Mountains', lat: 31.923, lon: -104.8606, url: 'https://www.nps.gov/gumo', states: ['TX'] },
+  { name: 'Haleakalā', lat: 20.7204, lon: -156.1552, url: 'https://www.nps.gov/hale', states: ['HI'] },
+  { name: 'Hawaiʻi Volcanoes', lat: 19.4194, lon: -155.2885, url: 'https://www.nps.gov/havo', states: ['HI'] },
+  { name: 'Hot Springs', lat: 34.5136, lon: -93.0534, url: 'https://www.nps.gov/hosp', states: ['AR'] },
+  { name: 'Indiana Dunes', lat: 41.6500, lon: -87.0522, url: 'https://www.nps.gov/indu', states: ['IN'] },
+  { name: 'Isle Royale', lat: 47.9956, lon: -88.909, url: 'https://www.nps.gov/isro', states: ['MI'] },
+  { name: 'Joshua Tree', lat: 33.8734, lon: -115.901, url: 'https://www.nps.gov/jotr', states: ['CA'] },
+  { name: 'Katmai', lat: 58.6126, lon: -155.0631, url: 'https://www.nps.gov/katm', states: ['AK'] },
+  { name: 'Kenai Fjords', lat: 59.9225, lon: -149.6493, url: 'https://www.nps.gov/kefj', states: ['AK'] },
+  { name: 'Kobuk Valley', lat: 67.3356, lon: -159.1278, url: 'https://www.nps.gov/kova', states: ['AK'] },
+  { name: 'Lake Clark', lat: 60.9675, lon: -153.8494, url: 'https://www.nps.gov/lacl', states: ['AK'] },
+  { name: 'Lassen Volcanic', lat: 40.4977, lon: -121.4207, url: 'https://www.nps.gov/lavo', states: ['CA'] },
+  { name: 'Mammoth Cave', lat: 37.186, lon: -86.1018, url: 'https://www.nps.gov/maca', states: ['KY'] },
+  { name: 'Mesa Verde', lat: 37.2309, lon: -108.4618, url: 'https://www.nps.gov/meve', states: ['CO'] },
+  { name: 'Mount Rainier', lat: 46.8523, lon: -121.7603, url: 'https://www.nps.gov/mora', states: ['WA'] },
+  { name: 'North Cascades', lat: 48.7718, lon: -121.2985, url: 'https://www.nps.gov/noca', states: ['WA'] },
+  { name: 'Olympic', lat: 47.8021, lon: -123.6044, url: 'https://www.nps.gov/olym', states: ['WA'] },
+  { name: 'Petrified Forest', lat: 35.0658, lon: -109.7878, url: 'https://www.nps.gov/pefo', states: ['AZ'] },
+  { name: 'Pinnacles', lat: 36.4906, lon: -121.1825, url: 'https://www.nps.gov/pinn', states: ['CA'] },
+  { name: 'Redwood', lat: 41.2132, lon: -124.0046, url: 'https://www.nps.gov/redw', states: ['CA'] },
+  { name: 'Rocky Mountain', lat: 40.3428, lon: -105.6836, url: 'https://www.nps.gov/romo', states: ['CO'] },
+  { name: 'Saguaro', lat: 32.2967, lon: -111.1661, url: 'https://www.nps.gov/sagu', states: ['AZ'] },
+  { name: 'Sequoia', lat: 36.4864, lon: -118.5658, url: 'https://www.nps.gov/seki', states: ['CA'] },
+  { name: 'Shenandoah', lat: 38.53, lon: -78.35, url: 'https://www.nps.gov/shen', states: ['VA'] },
+  { name: 'Theodore Roosevelt', lat: 46.979, lon: -103.5387, url: 'https://www.nps.gov/thro', states: ['ND'] },
+  { name: 'Virgin Islands', lat: 18.342, lon: -64.7501, url: 'https://www.nps.gov/viis', states: ['VI'] },
+  { name: 'Voyageurs', lat: 48.4841, lon: -92.8386, url: 'https://www.nps.gov/voya', states: ['MN'] },
+  { name: 'Wind Cave', lat: 43.568, lon: -103.4836, url: 'https://www.nps.gov/wica', states: ['SD'] },
+  { name: 'Wrangell-St. Elias', lat: 61.7194, lon: -142.9856, url: 'https://www.nps.gov/wrst', states: ['AK'] },
+  { name: 'Yellowstone', lat: 44.6, lon: -110.5, url: 'https://www.nps.gov/yell', states: ['WY','MT','ID'] },
+  { name: 'Yosemite', lat: 37.8651, lon: -119.5383, url: 'https://www.nps.gov/yose', states: ['CA'] },
+  { name: 'Zion', lat: 37.2982, lon: -113.0263, url: 'https://www.nps.gov/zion', states: ['UT'] },
 ];
 const container=document.getElementById('parks');
 const stateFilter=document.getElementById('stateFilter');
 const sortMenu=document.getElementById('sortMenu');
 let weatherData=[];
 
-// populate state filter
-[...new Set(parks.map(p=>p.state))].sort().forEach(st=>{
-  const opt=document.createElement('option');opt.value=st;opt.textContent=st;stateFilter.appendChild(opt);
+// build a flat list of all state/territory abbreviations, then dedupe & sort
+const states = [...new Set(parks.flatMap(p => p.states))].sort();
+
+states.forEach(st => {
+  const opt = document.createElement('option');
+  opt.value = st;
+  opt.textContent = st;
+  stateFilter.appendChild(opt);
 });
 
 stateFilter.addEventListener('change',updateDisplay);
@@ -135,7 +145,7 @@ function updateDisplay(){
   const stateSel=stateFilter.value;
   const sortSel=sortMenu.value;
   let list=[...weatherData];
-  if(stateSel!=='all') list=list.filter(p=>p.state===stateSel);
+  if (stateSel !== 'all') list = list.filter(p => p.states.includes(stateSel));
   list.sort((a,b)=>{
     switch(sortSel){
       case 'temp': return (b.temp||-Infinity)-(a.temp||-Infinity);
