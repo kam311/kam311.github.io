@@ -1,246 +1,133 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-YN8ML0DX5L"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-YN8ML0DX5L'); </script>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>US National Parks Weather</title>
-  
-  
-  <!-- SEO Metadata -->
-<title>Current Weather at All National Parks | Park Weather</title>
-<meta name="description" content="A simple and quick way to see current conditions at all 63 US National Parks">
-<meta name="keywords" content="national parks, nps, weather, forecast, hiking, zion, yellowstone, yosemite">
-<meta name="author" content="Park Weather">
-<meta name="robots" content="index, follow">
-
-<!-- Social Sharing (Open Graph for Facebook, LinkedIn, etc.) -->
-<meta property="og:title" content="Current Weather at All National Parks | Park Weather">
-<meta property="og:description" content="A simple and quick way to see current conditions at all 63 US National Parks">
-<meta property="og:url" content="https://kam311.github.io">
-<meta property="og:type" content="website">
-
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Current Weather at All National Parks | Park Weather">
-<meta name="twitter:description" content="A simple and quick way to see current conditions at all 63 US National Parks">
-
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mail Merge Messenger Help</title>
+  <meta name="description" content="Help, Privacy Policy, and Terms of Use for Mail Merge Messenger." />
   <style>
-    body{margin:0;font-family:sans-serif;background:#f4f4f4;color:#333;display:flex;flex-direction:column;align-items:center;padding:2rem}
-    h1{font-size:2rem;margin:0 0 1rem}
-    .controls{display:flex;flex-wrap:wrap;gap:.75rem;margin-bottom:1rem;width:100%;max-width:1200px;justify-content:center}
-    select{padding:.4rem .6rem;border:1px solid #bbb;border-radius:6px;font-size:.9rem}
-    .park-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem;width:100%;max-width:1200px}
-    .park{background:#fff;padding:1rem;border-radius:8px;box-shadow:0 2px 5px rgba(0,0,0,.1);display:flex;flex-direction:column;align-items:center;text-align:center;transition:background .3s;text-decoration:none;color:inherit}
-    .park:hover{background:#e9f4ff}
-    .after-dark{background:#ddd}
-    .park h2{font-size:1.2rem;margin:.25rem 0 .4rem}
-    .icon{font-size:2rem;margin-bottom:.3rem}
-    .weather{font-size:.95rem;color:#555}
-    small{font-size:.8rem;color:#666}
-	.loader-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(255, 255, 255, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-}
-
-.spinner {
-  border: 8px solid #f3f3f3;
-  border-top: 8px solid #3498db; /* Spinner color */
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
+    :root {
+      --fg: #111;
+      --muted: #555;
+      --bg: #fff;
+      --accent: #2e7d32;
+      --card: #f7f7f8;
+      --border: #e7e7ea;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --fg: #f2f2f2;
+        --muted: #c2c2c2;
+        --bg: #0f1115;
+        --accent: #66bb6a;
+        --card: #161a20;
+        --border: #232834;
+      }
+    }
+    body {
+      margin:0;
+      background:var(--bg);
+      color:var(--fg);
+      font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    }
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 16px;
+      text-align: center;
+    }
+    header img {
+      width: 120px;
+      height: 120px;
+      border-radius: 24px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h1 {
+      font-size: 32px;
+      margin: 0 0 8px;
+    }
+    p.subtitle {
+      color: var(--muted);
+      margin-bottom: 32px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin: 20px auto;
+      text-align: left;
+    }
+    h2 { font-size: 20px; margin-top: 0; }
+    ul { padding-left: 20px; }
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    a:hover, a:focus {
+      text-decoration: underline;
+    }
+    footer {
+      margin-top: 40px;
+      font-size: 13px;
+      color: var(--muted);
+    }
   </style>
 </head>
 <body>
-  <h1>Current Weather in US National Parks</h1>
-  <div id="loader" class="loader-container">
-  <div class="spinner"></div>
-</div>
-  <div class="controls">
-    <select id="stateFilter">
-      <option value="all">All States</option>
-    </select>
-    <select id="sortMenu">
-      <option value="name">Sort by Name (A–Z)</option>
-      <option value="temp">Sort by Current Temp</option>
-      <option value="high">Sort by High Temp</option>
-      <option value="low">Sort by Low Temp</option>
-    </select>
+  <div class="container">
+    <header>
+      <img src="AppIcon.png" alt="Mail Merge Messenger logo" />
+      <h1>Mail Merge Messenger Help</h1>
+      <p class="subtitle">User Guide • Privacy Policy • Terms of Use</p>
+    </header>
+
+    <!-- Documentation links -->
+    <div class="card">
+      <h2>Documentation Links</h2>
+      <ul>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms of Use</a></li>
+      </ul>
+    </div>
+
+    <!-- Built-in Help Guide -->
+    <div class="card">
+      <h2>Getting Started</h2>
+      <ol>
+        <li><strong>Import Your Contacts:</strong>
+          Click the <em>Import CSV</em> button in the toolbar or drag a CSV file onto the app window.
+          The CSV should include at least a <code>phone</code> column, plus optional columns like <code>name</code>, <code>product</code>, or other fields.</li>
+        <li><strong>Review Merge Fields:</strong>
+          After importing, the header row of your CSV will appear as clickable merge fields. Click a field to insert <code>{{field}}</code> into your message template.</li>
+        <li><strong>Compose a Template:</strong>
+          Type your message in the editor. Merge fields will be replaced with each contact’s data.
+          Example: <code>Hello {{name}}, your order {{product}} ships on {{ship_date}}</code>.</li>
+        <li><strong>Preview Messages:</strong>
+          The preview pane shows each message personalized for every contact. Double-click a row to send an individual test message.</li>
+        <li><strong>Send All:</strong>
+          Click <em>Send All</em> to deliver your messages. Adjust the delay between sends to avoid rate-limits.
+          You may also switch to “SMS-only” mode if you don’t want iMessage used.</li>
+        <li><strong>Manage Templates &amp; History:</strong>
+          Save templates for later, delete old ones, or view a log of past sends in the <em>History</em> window.</li>
+      </ol>
+    </div>
+
+    <div class="card">
+      <h2>Troubleshooting</h2>
+      <ul>
+        <li>If CSV import fails, ensure the file is plain text with comma separators and has a header row.</li>
+        <li>If Messages.app does not send, check macOS automation permissions under System Settings → Privacy & Security → Automation.</li>
+        <li>For SMS-only sending, disable iMessage on your Mac and enable Text Message Forwarding from your iPhone.</li>
+      </ul>
+    </div>
+
+    <footer>
+      <p>© Matthew White, 2025.
+      Not affiliated with or endorsed by Apple Inc.</p>
+    </footer>
   </div>
-  <div id="parks" class="park-list">Loading weather data...</div>
-<script>
-  window.addEventListener("load", () => {
-    // Optional: simulate a delay or wait for real data load
-    setTimeout(() => {
-      document.getElementById("loader").style.display = "none";
-    }, 1500); // Change duration or use actual data load callback
-  });
-</script>
-<script>
-const parks = [
-  { name: 'Acadia', lat: 44.35, lon: -68.21, url: 'https://www.nps.gov/acad', states: ['ME'] },
-  { name: 'American Samoa', lat: -14.25, lon: -170.68, url: 'https://www.nps.gov/npsa/index.htm', states: ['AS'] },
-  { name: 'Arches', lat: 38.7331, lon: -109.5925, url: 'https://www.nps.gov/arch', states: ['UT'] },
-  { name: 'Badlands', lat: 43.8554, lon: -102.3397, url: 'https://www.nps.gov/badl', states: ['SD'] },
-  { name: 'Big Bend', lat: 29.1275, lon: -103.2425, url: 'https://www.nps.gov/bibe', states: ['TX'] },
-  { name: 'Biscayne', lat: 25.4824, lon: -80.2083, url: 'https://www.nps.gov/bisc', states: ['FL'] },
-  { name: 'Black Canyon of the Gunnison', lat: 38.5754, lon: -107.7416, url: 'https://www.nps.gov/blca', states: ['CO'] },
-  { name: 'Bryce Canyon', lat: 37.593, lon: -112.1871, url: 'https://www.nps.gov/brca', states: ['UT'] },
-  { name: 'Canyonlands', lat: 38.2, lon: -109.93, url: 'https://www.nps.gov/cany', states: ['UT'] },
-  { name: 'Capitol Reef', lat: 38.367, lon: -111.2615, url: 'https://www.nps.gov/care', states: ['UT'] },
-  { name: 'Carlsbad Caverns', lat: 32.1479, lon: -104.5567, url: 'https://www.nps.gov/cave', states: ['NM'] },
-  { name: 'Channel Islands', lat: 34.0069, lon: -119.7785, url: 'https://www.nps.gov/chis', states: ['CA'] },
-  { name: 'Congaree', lat: 33.7911, lon: -80.7812, url: 'https://www.nps.gov/cong', states: ['SC'] },
-  { name: 'Crater Lake', lat: 42.8684, lon: -122.1685, url: 'https://www.nps.gov/crla', states: ['OR'] },
-  { name: 'Cuyahoga Valley', lat: 41.2808, lon: -81.5678, url: 'https://www.nps.gov/cuva', states: ['OH'] },
-  { name: 'Death Valley', lat: 36.2461, lon: -116.8185, url: 'https://www.nps.gov/deva', states: ['CA','NV'] },
-  { name: 'Denali', lat: 63.1148, lon: -151.1926, url: 'https://www.nps.gov/dena', states: ['AK'] },
-  { name: 'Dry Tortugas', lat: 24.6285, lon: -82.8732, url: 'https://www.nps.gov/drto', states: ['FL'] },
-  { name: 'Everglades', lat: 25.2866, lon: -80.8987, url: 'https://www.nps.gov/ever', states: ['FL'] },
-  { name: 'Gates of the Arctic', lat: 67.78, lon: -153.3, url: 'https://www.nps.gov/gaar', states: ['AK'] },
-  { name: 'Gateway Arch', lat: 38.6247, lon: -90.1848, url: 'https://www.nps.gov/jeff', states: ['MO'] },
-  { name: 'Glacier', lat: 48.7596, lon: -113.787, url: 'https://www.nps.gov/glac', states: ['MT'] },
-  { name: 'Glacier Bay', lat: 58.6658, lon: -136.9002, url: 'https://www.nps.gov/glba', states: ['AK'] },
-  { name: 'Grand Canyon', lat: 36.1069, lon: -112.1129, url: 'https://www.nps.gov/grca', states: ['AZ'] },
-  { name: 'Grand Teton', lat: 43.7904, lon: -110.6818, url: 'https://www.nps.gov/grte', states: ['WY'] },
-  { name: 'Great Basin', lat: 38.9833, lon: -114.3064, url: 'https://www.nps.gov/grba', states: ['NV'] },
-  { name: 'Great Sand Dunes', lat: 37.7924, lon: -105.5943, url: 'https://www.nps.gov/grsa', states: ['CO'] },
-  { name: 'Great Smoky Mountains', lat: 35.6532, lon: -83.507, url: 'https://www.nps.gov/grsm', states: ['TN','NC'] },
-  { name: 'Guadalupe Mountains', lat: 31.923, lon: -104.8606, url: 'https://www.nps.gov/gumo', states: ['TX'] },
-  { name: 'Haleakalā', lat: 20.7204, lon: -156.1552, url: 'https://www.nps.gov/hale', states: ['HI'] },
-  { name: 'Hawaiʻi Volcanoes', lat: 19.4194, lon: -155.2885, url: 'https://www.nps.gov/havo', states: ['HI'] },
-  { name: 'Hot Springs', lat: 34.5136, lon: -93.0534, url: 'https://www.nps.gov/hosp', states: ['AR'] },
-  { name: 'Indiana Dunes', lat: 41.6500, lon: -87.0522, url: 'https://www.nps.gov/indu', states: ['IN'] },
-  { name: 'Isle Royale', lat: 47.9956, lon: -88.909, url: 'https://www.nps.gov/isro', states: ['MI'] },
-  { name: 'Joshua Tree', lat: 33.8734, lon: -115.901, url: 'https://www.nps.gov/jotr', states: ['CA'] },
-  { name: 'Katmai', lat: 58.6126, lon: -155.0631, url: 'https://www.nps.gov/katm', states: ['AK'] },
-  { name: 'Kenai Fjords', lat: 59.9225, lon: -149.6493, url: 'https://www.nps.gov/kefj', states: ['AK'] },
-  { name: 'Kobuk Valley', lat: 67.3356, lon: -159.1278, url: 'https://www.nps.gov/kova', states: ['AK'] },
-  { name: 'Lake Clark', lat: 60.9675, lon: -153.8494, url: 'https://www.nps.gov/lacl', states: ['AK'] },
-  { name: 'Lassen Volcanic', lat: 40.4977, lon: -121.4207, url: 'https://www.nps.gov/lavo', states: ['CA'] },
-  { name: 'Mammoth Cave', lat: 37.186, lon: -86.1018, url: 'https://www.nps.gov/maca', states: ['KY'] },
-  { name: 'Mesa Verde', lat: 37.2309, lon: -108.4618, url: 'https://www.nps.gov/meve', states: ['CO'] },
-  { name: 'Mount Rainier', lat: 46.8523, lon: -121.7603, url: 'https://www.nps.gov/mora', states: ['WA'] },
-  { name: 'New River Gorge', lat: 38.07, lon: -81.08, url: 'https://www.nps.gov/neri', states: ['WV'] },
-  { name: 'North Cascades', lat: 48.7718, lon: -121.2985, url: 'https://www.nps.gov/noca', states: ['WA'] },
-  { name: 'Olympic', lat: 47.8021, lon: -123.6044, url: 'https://www.nps.gov/olym', states: ['WA'] },
-  { name: 'Petrified Forest', lat: 35.0658, lon: -109.7878, url: 'https://www.nps.gov/pefo', states: ['AZ'] },
-  { name: 'Pinnacles', lat: 36.4906, lon: -121.1825, url: 'https://www.nps.gov/pinn', states: ['CA'] },
-  { name: 'Redwood', lat: 41.2132, lon: -124.0046, url: 'https://www.nps.gov/redw', states: ['CA'] },
-  { name: 'Rocky Mountain', lat: 40.3428, lon: -105.6836, url: 'https://www.nps.gov/romo', states: ['CO'] },
-  { name: 'Saguaro', lat: 32.2967, lon: -111.1661, url: 'https://www.nps.gov/sagu', states: ['AZ'] },
-  { name: 'Sequoia', lat: 36.4864, lon: -118.5658, url: 'https://www.nps.gov/seki', states: ['CA'] },
-  { name: 'Shenandoah', lat: 38.53, lon: -78.35, url: 'https://www.nps.gov/shen', states: ['VA'] },
-  { name: 'Theodore Roosevelt', lat: 46.979, lon: -103.5387, url: 'https://www.nps.gov/thro', states: ['ND'] },
-  { name: 'Virgin Islands', lat: 18.342, lon: -64.7501, url: 'https://www.nps.gov/viis', states: ['VI'] },
-  { name: 'Voyageurs', lat: 48.4841, lon: -92.8386, url: 'https://www.nps.gov/voya', states: ['MN'] },
-  { name: 'White Sands', lat: 32.78, lon: -106.17, url: 'https://www.nps.gov/whsa', states: ['NM'] },
-  { name: 'Wind Cave', lat: 43.568, lon: -103.4836, url: 'https://www.nps.gov/wica', states: ['SD'] },
-  { name: 'Wrangell-St. Elias', lat: 61.7194, lon: -142.9856, url: 'https://www.nps.gov/wrst', states: ['AK'] },
-  { name: 'Yellowstone', lat: 44.6, lon: -110.5, url: 'https://www.nps.gov/yell', states: ['WY','MT','ID'] },
-  { name: 'Yosemite', lat: 37.8651, lon: -119.5383, url: 'https://www.nps.gov/yose', states: ['CA'] },
-  { name: 'Zion', lat: 37.2982, lon: -113.0263, url: 'https://www.nps.gov/zion', states: ['UT'] },
-];
-const container=document.getElementById('parks');
-const stateFilter=document.getElementById('stateFilter');
-const sortMenu=document.getElementById('sortMenu');
-let weatherData=[];
-
-// build a flat list of all state/territory abbreviations, then dedupe & sort
-const states = [...new Set(parks.flatMap(p => p.states))].sort();
-
-states.forEach(st => {
-  const opt = document.createElement('option');
-  opt.value = st;
-  opt.textContent = st;
-  stateFilter.appendChild(opt);
-});
-
-stateFilter.addEventListener('change',updateDisplay);
-sortMenu.addEventListener('change',updateDisplay);
-
-async function fetchWeather(){
-  const reqs=parks.map(async park=>{
-    try{
-      const url=`https://api.open-meteo.com/v1/forecast?latitude=${park.lat}&longitude=${park.lon}&current_weather=true&daily=temperature_2m_max,temperature_2m_min,sunset&temperature_unit=fahrenheit&timezone=auto`;
-      const res=await fetch(url);
-      const data=await res.json();
-      const now=new Date(data.current_weather.time);
-      const sunset=new Date(data.daily.sunset[0]);
-      return{
-        ...park,
-        temp:data.current_weather.temperature,
-        code:data.current_weather.weathercode,
-        high:data.daily.temperature_2m_max[0],
-        low:data.daily.temperature_2m_min[0],
-        afterDark:now>sunset
-      };
-    }catch(e){
-      console.error('fetch error',park.name,e);
-      return{...park,temp:NaN,code:null,high:NaN,low:NaN,afterDark:false,error:true};
-    }
-  });
-  weatherData=await Promise.all(reqs);
-  updateDisplay();
-}
-
-function updateDisplay(){
-  const stateSel=stateFilter.value;
-  const sortSel=sortMenu.value;
-  let list=[...weatherData];
-  if (stateSel !== 'all') list = list.filter(p => p.states.includes(stateSel));
-  list.sort((a,b)=>{
-    switch(sortSel){
-      case 'temp': return (b.temp||-Infinity)-(a.temp||-Infinity);
-      case 'high': return (b.high||-Infinity)-(a.high||-Infinity);
-      case 'low': return (a.low||Infinity)-(b.low||Infinity);
-      default: return a.name.localeCompare(b.name);
-    }
-  });
-  render(list);
-}
-
-function render(data){
-  container.innerHTML='';
-  if(!data.length){container.textContent='No parks match filter.';return;}
-  data.forEach(p=>{
-    const desc=weatherDescriptions[p.code]?.text||'Unknown';
-    const icon=weatherDescriptions[p.code]?.icon||'❓';
-    const el=document.createElement('a');
-    el.href=p.url;el.target='_blank';
-    el.className='park'+(p.afterDark?' after-dark':'');
-    el.innerHTML=`<h2>${p.name}</h2><div class='icon' aria-label='${desc}'>${icon}</div><div class='weather'>${isNaN(p.temp)?'N/A':p.temp.toFixed(1)}°F<br><small>High ${isNaN(p.high)?'N/A':p.high.toFixed(1)}°F · Low ${isNaN(p.low)?'N/A':p.low.toFixed(1)}°F</small></div>`;
-    container.appendChild(el);
-  });
-}
-
-const weatherDescriptions={
-  0:{text:'Clear',icon:'☀️'},1:{text:'Mainly clear',icon:'🌤️'},2:{text:'Partly cloudy',icon:'⛅'},3:{text:'Overcast',icon:'☁️'},
-  45:{text:'Fog',icon:'🌫️'},48:{text:'Fog',icon:'🌫️'},51:{text:'Drizzle',icon:'🌦️'},53:{text:'Drizzle',icon:'🌧️'},55:{text:'Drizzle',icon:'🌧️'},
-  56:{text:'Freezing drizzle',icon:'🥶'},57:{text:'Freezing drizzle',icon:'🥶'},61:{text:'Rain',icon:'🌧️'},63:{text:'Rain',icon:'🌧️'},65:{text:'Heavy rain',icon:'🌧️'},
-  66:{text:'Freezing rain',icon:'🥶'},67:{text:'Freezing rain',icon:'🥶'},71:{text:'Snow',icon:'🌨️'},73:{text:'Snow',icon:'🌨️'},75:{text:'Heavy snow',icon:'❄️'},
-  77:{text:'Snow grains',icon:'❄️'},80:{text:'Showers',icon:'🌦️'},81:{text:'Showers',icon:'🌧️'},82:{text:'Violent showers',icon:'⛈️'},
-  85:{text:'Snow showers',icon:'🌨️'},86:{text:'Snow showers',icon:'❄️'},95:{text:'Thunder',icon:'⛈️'},96:{text:'Thunder hail',icon:'🌩️'},99:{text:'Severe thunder',icon:'🌩️'}
-};
-
-fetchWeather();
-setInterval(fetchWeather,300000);
-</script>
 </body>
 </html>
